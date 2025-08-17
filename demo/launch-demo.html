@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health Navigator - Demo Mode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 1200px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .demo-banner {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .demo-title {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .demo-subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .demo-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .demo-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .feature-description {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .demo-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+        }
+
+        .demo-data-preview {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .data-preview-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .data-table th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-banner">
+            🚀 DEMO MODE - AI Health Navigator with Mock Data
+        </div>
+
+        <div class="demo-header">
+            <h1 class="demo-title">AI Health Navigator</h1>
+            <p class="demo-subtitle">Advanced Healthcare AI with Enhanced Agentic Capabilities</p>
+        </div>
+
+        <div class="demo-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="patient-count">-</div>
+                <div class="stat-label">Patients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="symptom-count">-</div>
+                <div class="stat-label">Symptoms</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="provider-count">-</div>
+                <div class="stat-label">Healthcare Providers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="analysis-count">-</div>
+                <div class="stat-label">AI Analyses</div>
+            </div>
+        </div>
+
+        <div class="demo-features">
+            <div class="feature-card" onclick="showFeature('symptom-analysis')">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Enhanced Symptom Analysis</div>
+                <div class="feature-description">
+                    AI-powered symptom analysis with memory, multi-modal reasoning, and autonomous decision-making capabilities.
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('provider-matching')">
+                <div class="feature-icon">👨‍⚕️</div>
+                <div class="feature-title">Intelligent Provider Matching</div>
+                <div class="feature-description">
+                    Find the perfect healthcare provider based on your needs, location, and insurance coverage.
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('health-coaching')">
+                <div class="feature-icon">💪</div>
+                <div class="feature-title">Personalized Health Coaching</div>
+                <div class="feature-description">
+                    Adaptive health coaching that learns from your progress and provides personalized recommendations.
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('emergency-triage')">
+                <div class="feature-icon">🚨</div>
+                <div class="feature-title">Emergency Triage Assessment</div>
+                <div class="feature-description">
+                    Autonomous emergency assessment with urgency classification and life-saving interventions.
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('medication-management')">
+                <div class="feature-icon">💊</div>
+                <div class="feature-title">Medication Management</div>
+                <div class="feature-description">
+                    Advanced drug interaction checking, safety analysis, and adherence monitoring.
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('mental-health')">
+                <div class="feature-icon">🧠</div>
+                <div class="feature-title">Mental Health Support</div>
+                <div class="feature-description">
+                    Crisis intervention with emotional intelligence and discreet mental health support.
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-actions">
+            <button class="btn" onclick="launchFullDemo()">🚀 Launch Full Demo</button>
+            <button class="btn btn-secondary" onclick="showDataPreview()">📊 View Mock Data</button>
+            <a href="../README.md" class="btn btn-secondary" target="_blank">📖 Documentation</a>
+        </div>
+
+        <div class="demo-data-preview hidden" id="data-preview">
+            <div class="data-preview-title">Mock Data Preview</div>
+            <div id="data-table-container">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Loading mock data...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./demo-service.js"></script>
+    <script>
+        let demoService;
+        let mockData = {};
+
+        // Initialize demo service
+        async function initializeDemo() {
+            try {
+                demoService = window.demoService;
+                await demoService.initialize();
+                
+                // Load mock data
+                mockData = demoService.data;
+                
+                // Update stats
+                updateStats();
+                
+                console.log('Demo initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize demo:', error);
+                document.querySelector('.demo-container').innerHTML = `
+                    <div class="loading">
+                        <h2>Error Loading Demo</h2>
+                        <p>Failed to load demo data. Please check that all files are present.</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('patient-count').textContent = mockData.patients?.length || 0;
+            document.getElementById('symptom-count').textContent = mockData.symptoms?.length || 0;
+            document.getElementById('provider-count').textContent = mockData.healthcare_providers?.length || 0;
+            document.getElementById('analysis-count').textContent = mockData.ai_analysis_results?.length || 0;
+        }
+
+        function showFeature(feature) {
+            const features = {
+                'symptom-analysis': {
+                    title: 'Enhanced Symptom Analysis',
+                    description: 'AI-powered analysis with memory and reasoning capabilities',
+                    data: mockData.symptoms?.slice(0, 5) || []
+                },
+                'provider-matching': {
+                    title: 'Healthcare Providers',
+                    description: 'Comprehensive provider database with specialties and ratings',
+                    data: mockData.healthcare_providers?.slice(0, 5) || []
+                },
+                'health-coaching': {
+                    title: 'Health Coaching',
+                    description: 'Personalized health recommendations and tracking',
+                    data: mockData.ai_analysis_results?.slice(0, 5) || []
+                },
+                'emergency-triage': {
+                    title: 'Emergency Triage',
+                    description: 'Urgency assessment and emergency response coordination',
+                    data: mockData.symptoms?.filter(s => s.emergency_symptoms === 'True').slice(0, 5) || []
+                },
+                'medication-management': {
+                    title: 'Medication Management',
+                    description: 'Drug interaction checking and safety analysis',
+                    data: mockData.patients?.filter(p => p.medications !== '[]').slice(0, 5) || []
+                },
+                'mental-health': {
+                    title: 'Mental Health Support',
+                    description: 'Crisis intervention and mental health assessment',
+                    data: mockData.symptoms?.filter(s => s.symptom_name.includes('Anxiety') || s.symptom_name.includes('Depression')).slice(0, 5) || []
+                }
+            };
+
+            const featureData = features[feature];
+            if (featureData) {
+                showDataPreview(featureData.title, featureData.description, featureData.data);
+            }
+        }
+
+        function showDataPreview(title = 'Mock Data Preview', description = '', data = []) {
+            const container = document.getElementById('data-preview');
+            const tableContainer = document.getElementById('data-table-container');
+            
+            if (data.length === 0) {
+                tableContainer.innerHTML = '<p>No data available for this feature.</p>';
+            } else {
+                const headers = Object.keys(data[0]);
+                const tableHTML = `
+                    <h3>${title}</h3>
+                    ${description ? `<p>${description}</p>` : ''}
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                ${headers.map(header => `<th>${header}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map(row => `
+                                <tr>
+                                    ${headers.map(header => `<td>${row[header] || ''}</td>`).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                tableContainer.innerHTML = tableHTML;
+            }
+            
+            container.classList.remove('hidden');
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function launchFullDemo() {
+            // In a real implementation, this would launch the full React app
+            alert('Full demo would launch the complete AI Health Navigator application with all features enabled.\n\nThis demo page shows the mock data and basic functionality. For the full experience, run the complete application.');
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeDemo);
+    </script>
+</body>
+</html>

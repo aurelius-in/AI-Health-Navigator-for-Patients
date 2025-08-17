@@ -1,0 +1,38 @@
+{
+  "demo_mode": true,
+  "mock_data_path": "./mock-data",
+  "data_files": {
+    "patients": "patients.csv",
+    "symptoms": "symptoms.csv",
+    "healthcare_providers": "healthcare_providers.csv",
+    "ai_analysis_results": "ai_analysis_results.csv"
+  },
+  "demo_settings": {
+    "auto_login": true,
+    "demo_user": {
+      "id": "P001",
+      "name": "John Smith",
+      "email": "john.smith@email.com",
+      "role": "patient"
+    },
+    "skip_authentication": true,
+    "use_mock_api": true,
+    "mock_api_delay": 500
+  },
+  "features": {
+    "symptom_analysis": true,
+    "provider_search": true,
+    "health_history": true,
+    "ai_insights": true,
+    "emergency_triage": true,
+    "medication_management": true,
+    "preventive_care": true,
+    "mental_health": true
+  },
+  "ui_customization": {
+    "theme": "healthcare",
+    "show_demo_banner": true,
+    "demo_banner_text": "DEMO MODE - Using Mock Data",
+    "enable_mock_data_switching": true
+  }
+}
