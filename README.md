@@ -614,13 +614,6 @@ kubectl get pods -n ai-health-navigator
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
-
-- **Documentation**: [https://ai-health-navigator.readthedocs.io](https://ai-health-navigator.readthedocs.io)
-- **Issues**: [GitHub Issues](https://github.com/your-org/ai-health-navigator/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/ai-health-navigator/discussions)
-- **Email**: support@aihealthnavigator.com
-
 ## 🙏 Acknowledgments
 
 - **Medical Knowledge**: Based on established medical guidelines and best practices
