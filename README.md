@@ -13,6 +13,19 @@
 
 AI Health Navigator is a comprehensive healthcare platform that leverages cutting-edge AI technology to provide intelligent symptom analysis, emergency triage, healthcare provider matching, and personalized health recommendations. Built with enterprise-grade architecture, it offers a secure, scalable, and user-friendly solution for modern healthcare navigation.
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="assets/screen1.png" alt="AI Health Navigator Dashboard" width="800" />
+  <p><em>Main Dashboard - Real-time health monitoring and AI agent insights</em></p>
+  
+  <img src="assets/screen2.png" alt="Symptom Analysis Interface" width="800" />
+  <p><em>Symptom Analysis - Advanced AI-powered health assessment</em></p>
+  
+  <img src="assets/screen3.png" alt="Provider Matching Interface" width="800" />
+  <p><em>Provider Matching - Intelligent healthcare provider recommendations</em></p>
+</div>
+
 ## ✨ Advanced Features
 
 ### 🧠 **Multi-Modal AI Analysis**
